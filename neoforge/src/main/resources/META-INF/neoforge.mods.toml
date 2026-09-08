@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="GPL-3.0-only"
+
+[[mods]]
+modId="roadchina"
+version="1.0.0"
+displayName="Road China Unoffical"
+displayURL=""
+logoFile="icon.png"
+authors="Heliecp,Lyza_1031"
+description="This is a chinese style road mod"
+
+[[dependencies.roadchina]]
+modId="minecraft"
+type="required"
+versionRange="[26.1,26.2]"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.roadchina]]
+modId="architectury"
+type="required"
+versionRange="[19.0.1,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.roadchina]]
+modId="citymod"
+type="required"
+versionRange="[2.2.0,)"
+ordering="AFTER"
+side="BOTH"

@@ -1,0 +1,16 @@
+plugins {
+    id 'com.gradleup.shadow'
+}
+architectury {
+    common("fabric", "neoforge")
+}
+
+configurations {
+}
+
+dependencies {
+    compileOnly "dev.architectury:architectury:$rootProject.architectury_api_version"
+    // citymod 是外部模组（位于根目录 libs/），common 仅编译期引用其类，
+    // 运行时由各平台子项目的 implementation 依赖提供。
+    compileOnly files("../libs/citymod-fabric-2.2.0.jar")
+}

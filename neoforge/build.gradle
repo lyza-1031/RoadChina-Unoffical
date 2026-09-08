@@ -1,0 +1,74 @@
+plugins {
+    id 'com.gradleup.shadow'
+}
+
+architectury {
+    platformSetupLoomIde()
+    neoForge()
+}
+
+loom {
+    runs {
+        client {
+            client()
+            setConfigName("NeoForge Client")
+            ideConfigGenerated(true)
+            runDir("run")
+        }
+        server {
+            server()
+            setConfigName("NeoForge Server")
+            ideConfigGenerated(true)
+            runDir("run")
+        }
+    }
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentNeoForge.extendsFrom common
+
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+repositories {
+    maven {
+        name = 'NeoForged'
+        url = 'https://maven.neoforged.net/releases'
+    }
+}
+
+dependencies {
+    neoForge "net.neoforged:neoforge:$rootProject.neoforge_version"
+    implementation "dev.architectury:architectury-neoforge:$rootProject.architectury_api_version"
+    implementation files("../libs/citymod-neoforge-2.2.0.jar")
+    common project(':common')
+    shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
+}
+
+shadowJar {
+    archiveClassifier = 'dev-shadow'
+    dependsOn project(':common').tasks.compileJava
+    from project(':common').sourceSets.main.output
+    configurations = [project.configurations.shadowBundle]
+    exclude 'net/fabricmc/loader/**'
+    exclude 'META-INF/versions/**'
+    exclude 'module-info.class'
+    zip64 true
+}
+
+jar {
+    dependsOn shadowJar
+    from zipTree(shadowJar.archiveFile)
+    archiveClassifier = ''
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    archiveFileName = "roadchina-unoffical-26.1.x-26.2-neoforge-${project.version}.jar"
+}

@@ -1,0 +1,65 @@
+plugins {
+    id 'com.gradleup.shadow'
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+dependencies {
+    implementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+    implementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
+    implementation "dev.architectury:architectury-fabric:$rootProject.architectury_api_version"
+    implementation files("../libs/citymod-fabric-2.2.0.jar")
+    implementation project(':common')
+    common project(':common')
+    shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
+}
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') {
+        expand version: inputs.properties.version
+    }
+}
+
+shadowJar {
+    archiveClassifier = ''
+    dependsOn project(':common').tasks.compileJava
+    from project(':common').sourceSets.main.output
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = 'dev-shadow'
+    exclude 'net/fabricmc/loader/**'
+    exclude 'META-INF/versions/**'
+    exclude 'module-info.class'
+    from files(project(':common').sourceSets.main.output.classesDirs)
+}
+jar {
+    dependsOn shadowJar
+    from shadowJar
+    archiveClassifier = ''
+}
+tasks.jar.enabled = false
+tasks.register('renameShadowJar', Copy) {
+    dependsOn shadowJar
+    from shadowJar.archiveFile
+    into project.layout.buildDirectory.dir('libs')
+    rename { "roadchina_unoffical-26.1.x-26.2-fabric-${project.version}.jar" }
+}
+assemble.dependsOn renameShadowJar

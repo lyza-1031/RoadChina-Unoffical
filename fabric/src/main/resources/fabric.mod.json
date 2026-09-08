@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "roadchina",
+  "version": "${version}",
+  "name": "roadchina-unoffical",
+  "description": "roadchina 26.x",
+  "authors": [
+    "Lyza_1031"
+  ],
+  "contact": {
+  },
+  "license": "GPL-3.0-only",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.xbzstudio.rcnunoffical.fabric.rcnFabric"
+    ],
+    "client": [
+      "com.xbzstudio.rcnunoffical.fabric.client.rcnFabricClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": ">=26.1 <=26.2",
+    "java": ">=21",
+    "architectury": ">=19.0.1",
+    "citymod":">=2.2.0",
+    "fabric-api": "*"
+  },
+  "recommends": {
+    "sodium": ">=0.5.0"
+  },
+  "suggests": {
+    "sodium": "大幅度提升性能并能避免一些潜在的问题"
+  }
+}
