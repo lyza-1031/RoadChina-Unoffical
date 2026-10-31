@@ -1,7 +1,8 @@
 plugins {
+    // This version of Minecraft is not obfuscated, so Loom is set up without remapping.
     id 'dev.architectury.loom-no-remap' version '1.17-SNAPSHOT' apply false
     id 'architectury-plugin' version '3.5-SNAPSHOT'
-    id 'com.gradleup.shadow' version '8.3.6' apply false
+    id 'com.gradleup.shadow' version '9.4.3' apply false
 }
 
 architectury {
@@ -24,7 +25,6 @@ subprojects {
     }
 
     repositories {
-        flatDir { dirs rootProject.file("libs") }
         // Add repositories to retrieve artifacts from in here.
         // You should only use this when depending on other mods because
         // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
@@ -33,43 +33,23 @@ subprojects {
     }
 
     dependencies {
-        minecraft "com.mojang:minecraft:$rootProject.minecraft_version"
+        minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
     }
+
     java {
-        // Loom will automatically attach sourcesjar to a RemapSourcesjar task and to the "build" task
+        // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
         // if it is present.
         // If you remove this line, sources will not be generated.
         withSourcesJar()
 
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
     }
 
     tasks.withType(JavaCompile).configureEach {
         it.options.release = 25
     }
-    tasks.register('generateItemMappings') {
-        doLast {
-            def itemModelDir = file('src/main/resources/assets/roadchina/models/item')
-            def mappingDir = file('src/main/resources/assets/roadchina/items')
-            mappingDir.mkdirs()
-            itemModelDir.eachFile { file ->
-                if (file.name.endsWith('.json')) {
-                    def id = file.name.replace('.json', '')
-                    def mappingFile = new File(mappingDir, id + '.json')
-                    if (!mappingFile.exists()) { // 只生成缺失的
-                        mappingFile.text = """{
-  "model": {
-    "type": "minecraft:model",
-    "model": "roadchina:item/${id}"
-  }
-}"""
-                        println "Generated item mapping for ${id}"
-                    }
-                }
-            }
-        }
-    }
+
     // Configure Maven publishing.
     publishing {
         publications {

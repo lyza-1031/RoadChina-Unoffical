@@ -1,8 +1,6 @@
 package com.xbzstudio.rcnunoffical;
 
 import com.xbzstudio.citymod.CreativeTabData;
-import com.xbzstudio.citymod.block.BlockShapes;
-import com.xbzstudio.citymod.block.GenericMetalBlock;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import net.minecraft.core.Holder;

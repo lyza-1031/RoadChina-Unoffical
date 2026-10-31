@@ -1,6 +1,5 @@
 package com.xbzstudio.rcnunoffical;
 
-import com.xbzstudio.citymod.CityMod;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;

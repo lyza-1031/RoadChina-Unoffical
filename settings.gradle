@@ -6,7 +6,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-includeBuild("../citymod_26.1.2") {
+includeBuild("../citymod_26.3") {
     dependencySubstitution {
         substitute module("com.xbzstudio.citymod:citymod") using(project(":common"))
     }

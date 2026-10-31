@@ -5,7 +5,7 @@
   "name": "roadchina-unoffical",
   "description": "roadchina 26.x",
   "authors": [
-    "Lyza_1031"
+    "Lyza_1031,Heliecp,"
   ],
   "contact": {
   },
@@ -21,11 +21,11 @@
     ]
   },
   "depends": {
-    "fabricloader": ">=0.19.3",
-    "minecraft": ">=26.1 <=26.2",
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
     "java": ">=21",
     "architectury": ">=19.0.1",
-    "citymod":">=2.2.0",
+    "citymod":">=2.4.2",
     "fabric-api": "*"
   },
   "recommends": {

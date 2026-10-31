@@ -1,10 +1,9 @@
 package com.xbzstudio.rcnunoffical;
 
 import com.xbzstudio.citymod.BlockDef;
-import com.xbzstudio.citymod.block.GenericMetalBlock;
-import com.xbzstudio.rcnunoffical.ModBlockItem;
-import com.xbzstudio.citymod.block.BlockShapes;
-import com.xbzstudio.citymod.block.GenericSignBlock;
+import com.xbzstudio.citymod.block.genericblocks.GenericSignBlock;
+import com.xbzstudio.citymod.block.shapes.BlockShapes;
+import com.xbzstudio.citymod.block.*;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;

@@ -1,16 +1,16 @@
-plugins {
-    id 'com.gradleup.shadow'
-}
 architectury {
-    common("fabric", "neoforge")
-}
-
-configurations {
+    common rootProject.enabled_platforms.split(',')
 }
 
 dependencies {
-    compileOnly "dev.architectury:architectury:$rootProject.architectury_api_version"
-    // citymod 是外部模组（位于根目录 libs/），common 仅编译期引用其类，
-    // 运行时由各平台子项目的 implementation 依赖提供。
-    compileOnly files("../libs/citymod-fabric-2.2.0.jar")
+    // We depend on Fabric Loader here to use the Fabric @Environment annotations,
+    // which get remapped to the correct annotations on each platform.
+    // Do NOT use other classes from Fabric Loader.
+    implementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+
+    // Architectury API. This is optional, and you can comment it out if you don't need it.
+    implementation "dev.architectury:architectury:$rootProject.architectury_api_version"
+
+    // citymod 仅编译期引用，运行时由各平台子项目的 implementation 提供
+    compileOnly files("../libs/citymod-26.3-fabric-2.4.2.jar")
 }

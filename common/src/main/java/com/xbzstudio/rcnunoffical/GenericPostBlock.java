@@ -85,7 +85,6 @@ public class GenericPostBlock extends PipeBlock implements SimpleWaterloggedBloc
         this(id, (state, direction) -> !state.isAir());
     }
 
-    @Override
     protected MapCodec<? extends PipeBlock> codec() {
         return MapCodec.unit(this);
     }
